@@ -31,6 +31,7 @@ import testing from './tools/testing.js';
 import type { Tool } from './tools/tool.js';
 import type { Config } from '../config.js';
 import type { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import assert from './tools/assert.js';
 
 const snapshotTools: Tool<any>[] = [
   ...common(true),
@@ -45,6 +46,7 @@ const snapshotTools: Tool<any>[] = [
   ...snapshot,
   ...tabs(true),
   ...testing,
+  ...assert,
 ];
 
 const screenshotTools: Tool<any>[] = [

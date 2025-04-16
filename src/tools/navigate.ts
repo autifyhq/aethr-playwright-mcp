@@ -16,6 +16,7 @@
 
 import { z } from 'zod';
 import { defineTool, type ToolFactory } from './tool.js';
+import { replaceEnvVar } from './utils.js';
 
 const navigate: ToolFactory = captureSnapshot => defineTool({
   capability: 'core',
@@ -30,7 +31,7 @@ const navigate: ToolFactory = captureSnapshot => defineTool({
 
   handle: async (context, params) => {
     const tab = await context.ensureTab();
-    await tab.navigate(params.url);
+    await tab.navigate(replaceEnvVar(params.url));
 
     const code = [
       `// Navigate to ${params.url}`,
