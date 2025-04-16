@@ -27,6 +27,7 @@ import snapshot from './tools/snapshot.js';
 import tabs from './tools/tabs.js';
 import screen from './tools/screen.js';
 import testing from './tools/testing.js';
+import assert from './tools/assert.js';
 
 import type { Tool } from './tools/tool.js';
 
@@ -43,6 +44,7 @@ export const snapshotTools: Tool<any>[] = [
   ...snapshot,
   ...tabs(true),
   ...testing,
+  ...assert
 ];
 
 export const screenshotTools: Tool<any>[] = [

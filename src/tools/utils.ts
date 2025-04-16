@@ -77,3 +77,16 @@ export function sanitizeForFilePath(s: string) {
     return sanitize(s);
   return sanitize(s.substring(0, separator)) + '.' + sanitize(s.substring(separator + 1));
 }
+
+export function replaceEnvVar(input: string): string {
+  if (input.startsWith('${') && input.endsWith('}')) {
+    const variable = input.slice(2, -1);
+    const envValue = process.env[variable];
+    if (envValue)
+      return envValue;
+    else
+      return input;
+  } else {
+    return input;
+  }
+}

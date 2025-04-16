@@ -19,6 +19,7 @@ import { z } from 'zod';
 import { defineTool } from './tool.js';
 import * as javascript from '../javascript.js';
 import { outputFile } from '../config.js';
+import { replaceEnvVar } from './utils.js';
 
 import type * as playwright from 'playwright';
 
@@ -164,11 +165,11 @@ const type = defineTool({
     if (params.slowly) {
       code.push(`// Press "${params.text}" sequentially into "${params.element}"`);
       code.push(`await page.${await generateLocator(locator)}.pressSequentially(${javascript.quote(params.text)});`);
-      steps.push(() => locator.pressSequentially(params.text));
+      steps.push(() => locator.pressSequentially(replaceEnvVar(params.text)));
     } else {
       code.push(`// Fill "${params.text}" into "${params.element}"`);
       code.push(`await page.${await generateLocator(locator)}.fill(${javascript.quote(params.text)});`);
-      steps.push(() => locator.fill(params.text));
+      steps.push(() => locator.fill(replaceEnvVar(params.text)));
     }
 
     if (params.submit) {

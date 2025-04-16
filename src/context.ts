@@ -280,6 +280,8 @@ ${code.join('\n')}
   async close() {
     if (!this._browserContext)
       return;
+    if (process.env.TRACE)
+      await this._browserContext.tracing.stop({ path: process.env.TRACE });
     const browserContext = this._browserContext;
     const browser = this._browser;
     this._createBrowserContextPromise = undefined;
@@ -314,6 +316,8 @@ ${code.join('\n')}
       for (const page of this._browserContext.pages())
         this._onPageCreated(page);
       this._browserContext.on('page', page => this._onPageCreated(page));
+      if (process.env.TRACE)
+        await this._browserContext.tracing.start({ screenshots: true, snapshots: true, sources: true });
     }
     return this._browserContext;
   }

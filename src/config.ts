@@ -48,6 +48,7 @@ const defaultConfig: Config = {
     launchOptions: {
       channel: 'chrome',
       headless: os.platform() === 'linux' && !process.env.DISPLAY,
+      handleSIGTERM: false, // To prevent the race between signal handler and context close (including stopping trace)
     },
     contextOptions: {
       viewport: null,
