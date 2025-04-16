@@ -18,6 +18,7 @@ import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import type { ToolFactory } from './tool';
+import { replaceEnvVar } from './utils';
 
 const navigateSchema = z.object({
   url: z.string().describe('The URL to navigate to'),
@@ -34,7 +35,7 @@ const navigate: ToolFactory = captureSnapshot => ({
     const validatedParams = navigateSchema.parse(params);
     const currentTab = await context.ensureTab();
     return await currentTab.run(async tab => {
-      await tab.navigate(validatedParams.url);
+      await tab.navigate(replaceEnvVar(validatedParams.url));
       const code = [
         `// Navigate to ${validatedParams.url}`,
         `await page.goto('${validatedParams.url}');`,

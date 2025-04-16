@@ -30,6 +30,7 @@ import type { Tool, ToolCapability } from './tools/tool';
 import type { Resource } from './resources/resource';
 import type { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import type { LaunchOptions } from 'playwright';
+import assert from './tools/assert';
 
 const snapshotTools: Tool[] = [
   ...common(true),
@@ -40,6 +41,7 @@ const snapshotTools: Tool[] = [
   ...pdf,
   ...snapshot,
   ...tabs(true),
+  ...assert,
 ];
 
 const screenshotTools: Tool[] = [

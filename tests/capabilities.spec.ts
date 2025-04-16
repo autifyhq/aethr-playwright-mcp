@@ -19,6 +19,7 @@ import { test, expect } from './fixtures';
 test('test snapshot tool list', async ({ client }) => {
   const { tools } = await client.listTools();
   expect(new Set(tools.map(t => t.name))).toEqual(new Set([
+    'browser_assert_contain_text',
     'browser_click',
     'browser_drag',
     'browser_file_upload',

@@ -122,6 +122,8 @@ export class Context {
   async close() {
     if (!this._browserContext)
       return;
+    if (process.env.TRACE)
+      await this._browserContext.tracing.stop({ path: process.env.TRACE });
     await this._browserContext.close();
   }
 
@@ -133,6 +135,8 @@ export class Context {
       for (const page of this._browserContext.pages())
         this._onPageCreated(page);
       this._browserContext.on('page', page => this._onPageCreated(page));
+      if (process.env.TRACE)
+        await this._browserContext.tracing.start({ screenshots: true, snapshots: true, sources: true });
     }
     return this._browserContext;
   }

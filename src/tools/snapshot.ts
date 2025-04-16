@@ -21,6 +21,7 @@ import type * as playwright from 'playwright';
 import type { Tool } from './tool';
 import { generateLocator } from '../context';
 import * as javascript from '../javascript';
+import { replaceEnvVar } from './utils';
 
 const snapshot: Tool = {
   capability: 'core',
@@ -141,11 +142,11 @@ const type: Tool = {
       if (validatedParams.slowly) {
         code.push(`// Press "${validatedParams.text}" sequentially into "${validatedParams.element}"`);
         code.push(`await page.${await generateLocator(locator)}.pressSequentially(${javascript.quote(validatedParams.text)});`);
-        await locator.pressSequentially(validatedParams.text);
+        await locator.pressSequentially(replaceEnvVar(validatedParams.text));
       } else {
         code.push(`// Fill "${validatedParams.text}" into "${validatedParams.element}"`);
         code.push(`await page.${await generateLocator(locator)}.fill(${javascript.quote(validatedParams.text)});`);
-        await locator.fill(validatedParams.text);
+        await locator.fill(replaceEnvVar(validatedParams.text));
       }
       if (validatedParams.submit) {
         code.push(`// Submit text`);
