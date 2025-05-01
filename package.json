@@ -1,6 +1,6 @@
 {
   "name": "@aethr/playwright-mcp",
-  "version": "0.0.18",
+  "version": "0.0.18-patch.0",
   "description": "Playwright Tools for MCP",
   "repository": {
     "type": "git",
